@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 	"kusionstack.io/kubectl-kcl/pkg/options"
 )
@@ -14,14 +12,18 @@ func NewRunCmd() *cobra.Command {
 		Use:   "run",
 		Short: "Run KCL codes.",
 		RunE: func(*cobra.Command, []string) error {
-			fmt.Println(o.FilePath)
-			return nil
+			err := o.Validate()
+			if err != nil {
+				return err
+			}
+			return o.Run()
 		},
 		SilenceUsage: true,
 	}
 
 	f := cmd.Flags()
-	f.StringVar(&o.FilePath, "file", "", "input kcl file or path to pass to helm kcl template")
+	f.StringVarP(&o.InputPath, "filename", "f", "", "input kcl spec file to pass to kubectl kcl")
+	f.StringVarP(&o.OutputPath, "output", "o", "", "output yaml path, default is stdout")
 
 	return cmd
 }

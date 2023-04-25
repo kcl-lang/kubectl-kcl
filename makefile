@@ -7,7 +7,7 @@ GO ?= go
 
 .PHONY: run
 run:
-	go run main.go run --file ./examples/kcl-run.yaml
+	go run main.go run -f ./examples/kcl-run.yaml
 
 .PHONY: format
 format:
@@ -41,6 +41,10 @@ build: lint
 .PHONY: test
 test:
 	go test -v ./...
+
+.PHONY: fmt
+fmt:
+	go fmt ./...
 
 .PHONY: bootstrap
 bootstrap:
