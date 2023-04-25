@@ -48,34 +48,7 @@ go test -v ./...
 ### Integration Test
 
 ```bash
-# Verify that the annotation is added to the `Deployment` resource and the other resource `Service` 
-# does not have this annotation.
-diff \
-  <(helm template ./examples/workload-charts-with-kcl/workload-charts) \
-  <(go run main.go template --file ./examples/workload-charts-with-kcl/kcl-run.yaml) |\
-  grep annotations -A1
-```
-
-The output is
-
-```diff
->   annotations:
->     managed-by: kubectl-kcl-plugin
-```
-
-## Release
-
-Bump version in `plugin.yaml`:
-
-```shell
-code plugin.yaml
-git commit -m 'Bump kubectl-kcl version to 0.x.y'
-```
-
-Set `GITHUB_TOKEN` and run:
-
-```shell
-make docker-run-release
+go run main.go run --file ./examples/kcl-run.yaml
 ```
 
 ## Guides for Developing KCL
