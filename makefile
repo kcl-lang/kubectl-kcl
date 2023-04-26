@@ -14,18 +14,6 @@ format:
 	test -z "$$(find . -type f -o -name '*.go' -exec gofmt -d {} + | tee /dev/stderr)" || \
 	test -z "$$(find . -type f -o -name '*.go' -exec gofmt -w {} + | tee /dev/stderr)"
 
-.PHONY: install
-install: build
-	mkdir -p $(HELM_HOME)/plugins/kubectl-kcl/bin
-	cp -f bin/kcl $(HELM_HOME)/plugins/kubectl-kcl/bin
-	cp -f plugin.yaml $(HELM_HOME)/plugins/kubectl-kcl/
-
-.PHONY: install/helm3
-install/helm3: build
-	mkdir -p $(HELM_3_PLUGINS)/kubectl-kcl/bin
-	cp -f bin/kcl $(HELM_3_PLUGINS)/kubectl-kcl/bin
-	cp -f plugin.yaml $(HELM_3_PLUGINS)/kubectl-kcl/
-
 .PHONY: lint
 lint:
 	scripts/update-gofmt.sh
@@ -80,9 +68,3 @@ dist:
 .PHONY: release
 release: lint dist
 	scripts/release.sh v$(VERSION)
-
-# Test for the plugin installation with `helm plugin install -v THIS_BRANCH` works
-# Useful for verifying modified `install-binary.sh` still works against various environments
-.PHONY: test-plugin-installation
-test-plugin-installation:
-	docker build -f testdata/Dockerfile.install .

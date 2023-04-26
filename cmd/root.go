@@ -7,14 +7,14 @@ import (
 const rootCmdLongUsage = `
 The Kubectl KCL Plugin.
 
-* Edit, transformer, validate Helm charts using the KCL programming language.
+* Generate, mutate and validate Kubernetes manifests using the KCL programming language.
 `
 
 // New creates a new cobra client
 func New() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:          "kcl",
-		Short:        "Edit, transformer, validate Helm charts using the KCL programming language.",
+		Short:        "Generate, mutate and validate Kubernetes manifests using the KCL programming language.",
 		Long:         rootCmdLongUsage,
 		SilenceUsage: true,
 	}
