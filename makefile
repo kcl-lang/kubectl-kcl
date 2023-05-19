@@ -8,6 +8,7 @@ GO ?= go
 .PHONY: run
 run:
 	go run main.go run -f ./examples/kcl-run.yaml
+	go run main.go apply -f ./examples/kcl-apply.yaml
 
 .PHONY: format
 format:
@@ -44,7 +45,7 @@ docker-run-release: export pkg=/go/src/github.com/KusionStack/kubectl-kcl
 docker-run-release:
 	git checkout main
 	git push
-	docker run -it --rm -e GITHUB_TOKEN -v $(shell pwd):$(pkg) -w $(pkg) golang:1.18.1 make bootstrap release
+	docker run -it --rm -e GITHUB_TOKEN -v $(shell pwd):$(pkg) -w $(pkg) golang:1.19.1 make bootstrap release
 
 .PHONY: dist
 dist: export COPYFILE_DISABLE=1 #teach OSX tar to not put ._* files in tar archive

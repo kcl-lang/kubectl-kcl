@@ -21,3 +21,7 @@ build/
 release/
 
 .DS_store
+
+# ide 
+.vscode
+.idea
