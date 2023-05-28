@@ -10,9 +10,23 @@ import (
 	"k8s.io/kubectl/pkg/scheme"
 )
 
+type KubeCliRuntime struct {
+	Flags         *genericclioptions.ConfigFlags
+	AllNamespaces bool
+	Namespace     string
+	Selector      string
+	FieldSelector string
+}
+
+func NewKubeCliRuntime() *KubeCliRuntime {
+	return &KubeCliRuntime{
+		Flags: genericclioptions.NewConfigFlags(true),
+	}
+}
+
 // GetGeneralResources get kubernetes general resource like `kubectl get all`.
-func GetGeneralResources(flags *genericclioptions.ConfigFlags, w io.Writer) error {
-	r, err := fetchResourcesBulk(flags)
+func (k *KubeCliRuntime) GetGeneralResources(w io.Writer) error {
+	r, err := k.fetchResourcesBulk(k.Flags)
 	if err != nil {
 		return err
 	}
@@ -23,17 +37,14 @@ func GetGeneralResources(flags *genericclioptions.ConfigFlags, w io.Writer) erro
 	return nil
 }
 
-func fetchResourcesBulk(flags resource.RESTClientGetter) (runtime.Object, error) {
+func (k *KubeCliRuntime) fetchResourcesBulk(flags resource.RESTClientGetter) (runtime.Object, error) {
 	resources := []string{"deployments", "daemonsets", "service", "pod"}
-	var ns string
-	var selector string
-	var fieldSelector string
 
 	request := resource.NewBuilder(flags).
 		Unstructured().
 		ResourceTypes(resources...).
-		NamespaceParam(ns).DefaultNamespace().AllNamespaces(ns == "").
-		LabelSelectorParam(selector).FieldSelectorParam(fieldSelector).SelectAllParam(selector == "" && fieldSelector == "").
+		NamespaceParam(k.Namespace).DefaultNamespace().AllNamespaces(k.AllNamespaces).
+		LabelSelectorParam(k.Selector).FieldSelectorParam(k.FieldSelector).SelectAllParam(k.Selector == "" && k.FieldSelector == "").
 		Flatten().
 		Latest()
 	return request.Do().Object()

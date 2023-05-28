@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/KusionStack/krm-kcl/pkg/kio"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"kusionstack.io/kclvm-go/pkg/logger"
 	"kusionstack.io/kubectl-kcl/pkg/client"
 )
@@ -19,21 +18,27 @@ type ApplyOptions struct {
 	InputPath string
 	// OutputPath is the -o flag
 	OutputPath string
-	// GenericCliCfg is the cli-runtime config
-	GenericCliCfg *genericclioptions.ConfigFlags
+
+	// Namespace is the -n flag --namespace. It will set kubernetes namespace scope
+	Namespace string
+
+	// Selector is the -l flag --selector. It will return by label selector
+	Selector string
+
+	// FieldSelector is the --field-selector. Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector
+	// key1=value1,key2=value2). The server only supports a limited number of field queries per type
+	FieldSelector string
 }
 
 // NewRunOptions() create a new apply options for the apply command.
 func NewApplyOptions() *ApplyOptions {
-	return &ApplyOptions{
-		GenericCliCfg: genericclioptions.NewConfigFlags(true),
-	}
+	return &ApplyOptions{}
 }
 
 // Run apply command option.
 func (o *ApplyOptions) Run() error {
 	var buf bytes.Buffer
-	err := client.GetGeneralResources(o.GenericCliCfg, &buf)
+	err := o.run(&buf)
 	if err != nil {
 		logger.GetLogger().Errorf("get general resource err: %s", err.Error())
 		return err
@@ -51,6 +56,14 @@ func (o *ApplyOptions) Run() error {
 	}
 	pipeline := kio.NewPipeline(reader, writer, true)
 	return pipeline.Execute()
+}
+
+func (o *ApplyOptions) run(w io.Writer) error {
+	cliRuntime := client.NewKubeCliRuntime()
+	cliRuntime.Namespace = o.Namespace
+	cliRuntime.Selector = o.Selector
+	cliRuntime.FieldSelector = o.FieldSelector
+	return cliRuntime.GetGeneralResources(w)
 }
 
 // Validate the options.

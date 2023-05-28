@@ -2,15 +2,13 @@ package options
 
 import (
 	"testing"
-
-	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
 
 func TestApplyOptions_Run(t *testing.T) {
 	type fields struct {
-		InputPath     string
-		OutputPath    string
-		GenericCliCfg *genericclioptions.ConfigFlags
+		InputPath  string
+		OutputPath string
+		Namespace  string
 	}
 	tests := []struct {
 		name    string
@@ -20,9 +18,9 @@ func TestApplyOptions_Run(t *testing.T) {
 		{
 			"test1",
 			fields{
-				InputPath:     "../../examples/kcl-apply.yaml",
-				OutputPath:    "",
-				GenericCliCfg: genericclioptions.NewConfigFlags(true),
+				InputPath:  "../../examples/kcl-apply.yaml",
+				OutputPath: "",
+				Namespace:  "",
 			},
 			false,
 		},
@@ -30,9 +28,9 @@ func TestApplyOptions_Run(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			o := &ApplyOptions{
-				InputPath:     tt.fields.InputPath,
-				OutputPath:    tt.fields.OutputPath,
-				GenericCliCfg: tt.fields.GenericCliCfg,
+				InputPath:  tt.fields.InputPath,
+				OutputPath: tt.fields.OutputPath,
+				Namespace:  tt.fields.Namespace,
 			}
 			if err := o.Run(); (err != nil) != tt.wantErr {
 				t.Errorf("ApplyOptions.Run() error = %v, wantErr %v", err, tt.wantErr)

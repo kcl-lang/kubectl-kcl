@@ -3,13 +3,12 @@ package client
 import (
 	"os"
 	"testing"
-
-	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
 
 func TestGetGeneralResources(t *testing.T) {
-	flags := genericclioptions.NewConfigFlags(true)
-	err := GetGeneralResources(flags, os.Stdout)
+	cli := NewKubeCliRuntime()
+	cli.Namespace = "default"
+	err := cli.GetGeneralResources(os.Stdout)
 	if err != nil {
 		t.Fatalf("GetGeneralResources err: %s", err.Error())
 	}
