@@ -38,8 +38,8 @@ func NewApplyOptions() *ApplyOptions {
 // Run apply command option.
 func (o *ApplyOptions) Run() error {
 	var buf bytes.Buffer
-	err := o.run(&buf)
-	if err != nil {
+	cli := o.getCliRuntime()
+	if err := cli.GetGeneralResources(&buf); err != nil {
 		logger.GetLogger().Errorf("get general resource err: %s", err.Error())
 		return err
 	}
@@ -50,20 +50,35 @@ func (o *ApplyOptions) Run() error {
 	}
 	n := append(buf.Bytes(), bs...)
 	reader := bytes.NewReader(n)
-	writer, err := o.writer()
+
+	// use the io pipe feat to connect io writer to io reader
+	pr, pw := io.Pipe()
+	go func() {
+		pipeline := kio.NewPipeline(reader, pw, true)
+		if err := pipeline.Execute(); err != nil {
+			logger.GetLogger().Errorf("pipeline execute err: %s", err.Error())
+		}
+		defer pw.Close()
+	}()
+	var input bytes.Buffer
+	_, err = input.ReadFrom(pr)
 	if err != nil {
+		logger.GetLogger().Errorf("io reader err: %s", err.Error())
 		return err
 	}
-	pipeline := kio.NewPipeline(reader, writer, true)
-	return pipeline.Execute()
+	if err := cli.Apply(cli.Flags, &input); err != nil {
+		logger.GetLogger().Errorf("cli apply err: %s", err.Error())
+		return err
+	}
+	return nil
 }
 
-func (o *ApplyOptions) run(w io.Writer) error {
+func (o *ApplyOptions) getCliRuntime() *client.KubeCliRuntime {
 	cliRuntime := client.NewKubeCliRuntime()
 	cliRuntime.Namespace = o.Namespace
 	cliRuntime.Selector = o.Selector
 	cliRuntime.FieldSelector = o.FieldSelector
-	return cliRuntime.GetGeneralResources(w)
+	return cliRuntime
 }
 
 // Validate the options.

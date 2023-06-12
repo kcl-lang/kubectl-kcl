@@ -49,3 +49,58 @@ func (k *KubeCliRuntime) fetchResourcesBulk(flags resource.RESTClientGetter) (ru
 		Latest()
 	return request.Do().Object()
 }
+
+// Get kubernetes resource object info from io reader
+func (k *KubeCliRuntime) GetObjects(flags resource.RESTClientGetter, r io.Reader) ([]*resource.Info, error) {
+	request := resource.NewBuilder(flags).
+		Unstructured().
+		ContinueOnError().
+		NamespaceParam(k.Namespace).DefaultNamespace().
+		Stream(r, "").
+		LabelSelectorParam(k.Selector).
+		Flatten().
+		Do()
+	return request.Infos()
+}
+
+// Apply yaml file from io reader
+func (k *KubeCliRuntime) Apply(flags resource.RESTClientGetter, r io.Reader) error {
+	errs := []error{}
+	infos, err := k.GetObjects(flags, r)
+	if err != nil {
+		errs = append(errs, err)
+	}
+	if len(infos) == 0 && len(errs) == 0 {
+		return err
+	}
+	// Iterate through all objects, applying each one.
+	for _, info := range infos {
+		if err := k.applyOneObject(info); err != nil {
+			errs = append(errs, err)
+		}
+	}
+	if len(errs) == 1 {
+		return errs[0]
+	}
+	if len(errs) > 1 {
+		return errs[0]
+	}
+	return nil
+}
+
+func (k *KubeCliRuntime) applyOneObject(info *resource.Info) error {
+	helper := resource.NewHelper(info.Client, info.Mapping).WithFieldManager("kubectl-client-side-apply")
+	obj, err := helper.Replace(
+		info.Namespace,
+		info.Name,
+		true,
+		info.Object,
+	)
+	if err != nil {
+		return err
+	}
+	if err := info.Refresh(obj, true); err != nil {
+		return err
+	}
+	return nil
+}
