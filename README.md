@@ -29,7 +29,7 @@ If you want to use this as a `kubectl` plugin, then copy the `kubectl-kcl` binar
 
 ### Prerequisites
 
-+ GoLang 1.18+
++ GoLang 1.19+
 
 ```shell
 git clone https://github.com/kcl-lang/kubectl-kcl.git
