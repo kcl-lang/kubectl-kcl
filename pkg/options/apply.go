@@ -7,9 +7,9 @@ import (
 	"io"
 	"os"
 
-	"github.com/KusionStack/krm-kcl/pkg/kio"
+	"kcl-lang.io/krm-kcl/pkg/kio"
+	"kcl-lang.io/kubectl-kcl/pkg/client"
 	"kusionstack.io/kclvm-go/pkg/logger"
-	"kusionstack.io/kubectl-kcl/pkg/client"
 )
 
 // ApplyOptions is the options for the apply sub command.

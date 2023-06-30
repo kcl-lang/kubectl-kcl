@@ -1,6 +1,6 @@
 VERSION := $(shell cat VERSION)
 
-PKG:= kusionstack.io/kubectl-kcl
+PKG:= kcl-lang.io/kubectl-kcl
 LDFLAGS := -X $(PKG)/cmd.Version=$(VERSION)
 
 GO ?= go

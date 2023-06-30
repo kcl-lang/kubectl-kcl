@@ -1,8 +1,8 @@
 # Kubectl KCL Plugin
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/KusionStack/kubectl-kcl)](https://goreportcard.com/report/github.com/KusionStack/kubectl-kcl)
-[![GoDoc](https://godoc.org/github.com/KusionStack/kubectl-kcl?status.svg)](https://godoc.org/github.com/KusionStack/kubectl-kcl)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/KusionStack/kubectl-kcl/blob/main/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kcl-lang/kubectl-kcl)](https://goreportcard.com/report/github.com/kcl-lang/kubectl-kcl)
+[![GoDoc](https://godoc.org/github.com/kcl-lang/kubectl-kcl?status.svg)](https://godoc.org/github.com/kcl-lang/kubectl-kcl)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/kcl-lang/kubectl-kcl/blob/main/LICENSE)
 
 [KCL](https://github.com/KusionStack/KCLVM) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/).
 
@@ -15,7 +15,7 @@ This project is a `kubectl` plugin to generate, mutate and validate Kubernetes m
 Add to `krew` index and install with:
 
 ```shell
-kubectl krew index add kubectl-kcl https://github.com/KusionStack/kubectl-kcl
+kubectl krew index add kubectl-kcl https://github.com/kcl-lang/kubectl-kcl
 kubectl krew install kubectl-kcl/kubectl-kcl
 ```
 
@@ -32,7 +32,7 @@ If you want to use this as a `kubectl` plugin, then copy the `kubectl-kcl` binar
 + GoLang 1.18+
 
 ```shell
-git clone https://github.com/KusionStack/kubectl-kcl.git
+git clone https://github.com/kcl-lang/kubectl-kcl.git
 cd kubectl-kcl
 go run main.go
 ```
