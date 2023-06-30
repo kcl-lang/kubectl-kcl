@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"kusionstack.io/kubectl-kcl/pkg/options"
+	"kcl-lang.io/kubectl-kcl/pkg/options"
 )
 
 // NewRunCmd returns the run command.
