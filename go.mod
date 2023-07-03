@@ -8,8 +8,8 @@ require (
 	k8s.io/apimachinery v0.27.3
 	k8s.io/cli-runtime v0.27.1
 	k8s.io/kubectl v0.27.1
-	kcl-lang.io/krm-kcl v0.1.4
-	kusionstack.io/kclvm-go v0.5.0-beta.1
+	kcl-lang.io/kcl-go v0.5.0-beta.2
+	kcl-lang.io/krm-kcl v0.1.5
 )
 
 require (
