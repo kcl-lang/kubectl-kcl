@@ -1,7 +1,7 @@
 project_name: kubectl-kcl
 release:
   github:
-    owner: KusionStack
+    owner: kcl-lang
     name: kubectl-kcl
 builds:
   - id: kubectl-kcl
@@ -15,9 +15,9 @@ builds:
       - CGO_ENABLED=0
       - GO111MODULE=on
     ldflags: -s -w
-      -X github.com/KusionStack/kubectl-kcl/pkg/version.version={{.Version}}
-      -X github.com/KusionStack/kubectl-kcl/pkg/version.gitSHA={{.Commit}}
-      -X github.com/KusionStack/kubectl-kcl/pkg/version.buildTime={{.Date}}
+      -X github.com/kcl-lang/kubectl-kcl/pkg/version.version={{.Version}}
+      -X github.com/kcl-lang/kubectl-kcl/pkg/version.gitSHA={{.Commit}}
+      -X github.com/kcl-lang/kubectl-kcl/pkg/version.buildTime={{.Date}}
       -extldflags "-static"
     flags: -tags netgo -installsuffix netgo
     binary: kubectl-kcl
@@ -36,17 +36,17 @@ checksum:
   algorithm: sha256
 brews:
   - tap:
-      owner: KusionStack
+      owner: kcl-lang
       name: kubectl-kcl
       branch: chore-{{.Tag}}
       pull_request:
         enabled: true
     commit_author:
-      name: KusionStack
-    description: "kubectl-kcl is a kubectl plugin to generate, mutate and validate Kubernetes manifests using the KCL programming language."
+      name: kcl-lang
+    description: "kubectl-kcl is a kubectl plugin to generate, abstract, mutate and validate Kubernetes manifests using the KCL programming language."
 krews:
   - index:
-      owner: KusionStack
+      owner: kcl-lang
       name: kubectl-kcl
       branch: chore-{{.Tag}}
       pull_request:

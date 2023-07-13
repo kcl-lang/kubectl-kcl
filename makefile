@@ -41,7 +41,7 @@ bootstrap:
 	command -v golint || GO111MODULE=off go get -u golang.org/x/lint/golint
 
 .PHONY: docker-run-release
-docker-run-release: export pkg=/go/src/github.com/KusionStack/kubectl-kcl
+docker-run-release: export pkg=/go/src/github.com/kcl-lang/kubectl-kcl
 docker-run-release:
 	git checkout main
 	git push

@@ -4,7 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/kcl-lang/kubectl-kcl?status.svg)](https://godoc.org/github.com/kcl-lang/kubectl-kcl)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/kcl-lang/kubectl-kcl/blob/main/LICENSE)
 
-[KCL](https://github.com/KusionStack/KCLVM) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/).
+[KCL](https://github.com/kcl-lang/kcl) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/).
 
 This project is a `kubectl` plugin to generate, mutate and validate Kubernetes manifests using the KCL programming language.
 
