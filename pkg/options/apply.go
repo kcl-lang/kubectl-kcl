@@ -7,9 +7,9 @@ import (
 	"io"
 	"os"
 
+	"kcl-lang.io/kcl-go/pkg/logger"
 	"kcl-lang.io/krm-kcl/pkg/kio"
 	"kcl-lang.io/kubectl-kcl/pkg/client"
-	"kcl-lang.io/kcl-go/pkg/logger"
 )
 
 // ApplyOptions is the options for the apply sub command.

@@ -51,19 +51,19 @@ docker-run-release:
 dist: export COPYFILE_DISABLE=1 #teach OSX tar to not put ._* files in tar archive
 dist: export CGO_ENABLED=0
 dist:
-	rm -rf build/kcl/* release/*
-	mkdir -p build/kcl/bin release/
+	rm -rf build/kubectl-kcl/* release/*
+	mkdir -p build/kubectl-kcl/bin release/
 	cp -f README.md LICENSE build/kcl
-	GOOS=linux GOARCH=amd64 $(GO) build -o build/kcl/bin/kcl -trimpath -ldflags="$(LDFLAGS)"
+	GOOS=linux GOARCH=amd64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
 	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-linux-amd64.tgz kcl/
-	GOOS=linux GOARCH=arm64 $(GO) build -o build/kcl/bin/kcl -trimpath -ldflags="$(LDFLAGS)"
+	GOOS=linux GOARCH=arm64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
 	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-linux-arm64.tgz kcl/
-	GOOS=darwin GOARCH=amd64 $(GO) build -o build/kcl/bin/kcl -trimpath -ldflags="$(LDFLAGS)"
+	GOOS=darwin GOARCH=amd64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
 	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-macos-amd64.tgz kcl/
-	GOOS=darwin GOARCH=arm64 $(GO) build -o build/kcl/bin/kcl -trimpath -ldflags="$(LDFLAGS)"
+	GOOS=darwin GOARCH=arm64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
 	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-macos-arm64.tgz kcl/
-	rm build/kcl/bin/kcl
-	GOOS=windows GOARCH=amd64 $(GO) build -o build/kcl/bin/kcl.exe -trimpath -ldflags="$(LDFLAGS)"
+	rm build/kubectl-kcl/bin/kubectl-kcl
+	GOOS=windows GOARCH=amd64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl.exe -trimpath -ldflags="$(LDFLAGS)"
 	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-windows-amd64.tgz kcl/
 
 .PHONY: release
