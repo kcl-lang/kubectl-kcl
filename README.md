@@ -10,7 +10,9 @@ This project is a `kubectl` plugin to generate, mutate and validate Kubernetes m
 
 ## Installation
 
-### Krew
+Use this as a `kubectl` plugin.
+
+### From Krew Index
 
 Add to `krew` index and install with:
 
@@ -19,13 +21,17 @@ kubectl krew index add kubectl-kcl https://github.com/kcl-lang/kubectl-kcl
 kubectl krew install kubectl-kcl/kubectl-kcl
 ```
 
-### GitHub release
+### From GitHub Releases
 
-Download the binary from GitHub releases.
+Download the binary from GitHub releases, then copy the `kubectl-kcl` binary to your `PATH`. If not, you can also use the binary standalone.
 
-If you want to use this as a `kubectl` plugin, then copy the `kubectl-kcl` binary to your `PATH`. If not, you can also use the binary standalone.
+## Usage
 
-## Build
+```shell
+kubectl kcl run -f ./examples/kcl-run.yaml
+```
+
+## Developing
 
 ### Prerequisites
 
@@ -37,18 +43,18 @@ cd kubectl-kcl
 go run main.go
 ```
 
-## Test
+### Test
 
-### Unit Test
+#### Unit Test
 
 ```shell
-go test -v ./...
+go test ./...
 ```
 
-### Integration Test
+#### Integration Test
 
-```bash
-go run main.go run --file ./examples/kcl-run.yaml
+```shell
+go run main.go run -f ./examples/kcl-run.yaml
 ```
 
 ## Guides for Developing KCL
