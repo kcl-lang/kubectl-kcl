@@ -53,7 +53,7 @@ dist: export CGO_ENABLED=0
 dist:
 	rm -rf build/kubectl-kcl/* release/*
 	mkdir -p build/kubectl-kcl/bin release/
-	cp -f README.md LICENSE build/kcl
+	cp -f README.md LICENSE build/kubectl-kcl
 	GOOS=linux GOARCH=amd64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
 	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-linux-amd64.tgz kcl/
 	GOOS=linux GOARCH=arm64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"

@@ -1,0 +1,18 @@
+apiVersion: krm.kcl.dev/v1alpha1
+kind: KCLRun
+metadata:
+  name: web-service-abtraction
+spec:
+  params:
+    name: app
+    containers:
+      ngnix:
+        image: ngnix
+        ports:
+          containerPort: 80
+    service:
+      ports:
+      - port: 80
+    labels:
+      name: app
+  source: oci://docker.io/kcllang/web-service

@@ -9,7 +9,7 @@ require (
 	k8s.io/cli-runtime v0.27.1
 	k8s.io/kubectl v0.27.1
 	kcl-lang.io/kcl-go v0.5.0
-	kcl-lang.io/krm-kcl v0.2.0
+	kcl-lang.io/krm-kcl v0.2.1
 )
 
 require (
