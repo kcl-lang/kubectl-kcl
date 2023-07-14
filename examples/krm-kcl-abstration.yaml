@@ -9,7 +9,7 @@ spec:
       ngnix:
         image: ngnix
         ports:
-          containerPort: 80
+        - containerPort: 80
     service:
       ports:
       - port: 80
