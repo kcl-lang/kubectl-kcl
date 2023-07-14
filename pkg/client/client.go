@@ -2,8 +2,13 @@ package client
 
 import (
 	"io"
+	"os"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
+	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/cli-runtime/pkg/printers"
 	"k8s.io/cli-runtime/pkg/resource"
@@ -11,11 +16,12 @@ import (
 )
 
 type KubeCliRuntime struct {
-	Flags         *genericclioptions.ConfigFlags
-	AllNamespaces bool
-	Namespace     string
-	Selector      string
-	FieldSelector string
+	Flags          *genericclioptions.ConfigFlags
+	AllNamespaces  bool
+	Namespace      string
+	Selector       string
+	FieldSelector  string
+	ForceConflicts bool
 }
 
 func NewKubeCliRuntime() *KubeCliRuntime {
@@ -65,6 +71,8 @@ func (k *KubeCliRuntime) GetObjects(flags resource.RESTClientGetter, r io.Reader
 
 // Apply yaml file from io reader
 func (k *KubeCliRuntime) Apply(flags resource.RESTClientGetter, r io.Reader) error {
+	// Generates the objects using the resource builder if they have not
+	// already been stored by calling "SetObjects()" in the pre-processor.
 	errs := []error{}
 	infos, err := k.GetObjects(flags, r)
 	if err != nil {
@@ -83,23 +91,40 @@ func (k *KubeCliRuntime) Apply(flags resource.RESTClientGetter, r io.Reader) err
 		return errs[0]
 	}
 	if len(errs) > 1 {
-		return errs[0]
+		return utilerrors.NewAggregate(errs)
 	}
 	return nil
 }
 
 func (k *KubeCliRuntime) applyOneObject(info *resource.Info) error {
-	helper := resource.NewHelper(info.Client, info.Mapping).WithFieldManager("kubectl-client-side-apply")
-	obj, err := helper.Replace(
+	helper := resource.NewHelper(info.Client, info.Mapping).WithFieldManager("kubectl-kcl-client-side-apply")
+	// Send the full object to be applied on the server side.
+	data, err := runtime.Encode(unstructured.UnstructuredJSONScheme, info.Object)
+	if err != nil {
+		return err
+	}
+	obj, err := helper.Patch(
 		info.Namespace,
 		info.Name,
-		true,
-		info.Object,
+		types.ApplyPatchType,
+		data,
+		&metav1.PatchOptions{
+			Force: &k.ForceConflicts,
+		},
 	)
 	if err != nil {
 		return err
 	}
 	if err := info.Refresh(obj, true); err != nil {
+		return err
+	}
+	// TODO: use kubectl ApplyOptions intead of genericclioptions.
+	printer, err := genericclioptions.NewPrintFlags("configured").ToPrinter()
+	if err != nil {
+		return err
+	}
+
+	if err = printer.PrintObj(info.Object, os.Stdout); err != nil {
 		return err
 	}
 	return nil

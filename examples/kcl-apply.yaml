@@ -1,10 +1,18 @@
-functionConfig:
-  # kcl-fn-config.yaml
-  apiVersion: krm.kcl.dev/v1alpha1
-  kind: KCLRun
-  metadata:
-  # EDIT THE SOURCE!
-  # This should be your KCL code which preloads the `ResourceList` to `option("resource_list")
-  spec:
-    source: |
-      [resource | {if resource.kind == "Deployment": metadata.annotations: {"managed-by" = "krm-kcl"}} for resource in option("resource_list").items]
+apiVersion: krm.kcl.dev/v1alpha1
+kind: KCLRun
+metadata:
+  name: web-service-abtraction
+spec:
+  params:
+    name: app
+    containers:
+      ngnix:
+        image: ngnix
+        ports:
+        - containerPort: 80
+    service:
+      ports:
+      - port: 80
+    labels:
+      name: app
+  source: oci://docker.io/kcllang/web-service

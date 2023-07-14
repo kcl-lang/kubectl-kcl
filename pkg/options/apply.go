@@ -3,7 +3,6 @@ package options
 import (
 	"bufio"
 	"bytes"
-	"errors"
 	"io"
 	"os"
 
@@ -14,10 +13,7 @@ import (
 
 // ApplyOptions is the options for the apply sub command.
 type ApplyOptions struct {
-	// InputPath is the -f flag
-	InputPath string
-	// OutputPath is the -o flag
-	OutputPath string
+	RunOptions
 
 	// Namespace is the -n flag --namespace. It will set kubernetes namespace scope
 	Namespace string
@@ -37,20 +33,13 @@ func NewApplyOptions() *ApplyOptions {
 
 // Run apply command option.
 func (o *ApplyOptions) Run() error {
-	var buf bytes.Buffer
 	cli := o.getCliRuntime()
-	if err := cli.GetGeneralResources(&buf); err != nil {
-		logger.GetLogger().Errorf("get general resource err: %s", err.Error())
-		return err
-	}
-	_, bs, err := o.reader()
-	if err != nil {
-		logger.GetLogger().Errorf("read kcl code err: %s", err.Error())
-		return err
-	}
-	n := append(buf.Bytes(), bs...)
-	reader := bytes.NewReader(n)
 
+	reader, err := o.reader()
+	if err != nil {
+		logger.GetLogger().Errorf("read manifests err: %s", err.Error())
+		return err
+	}
 	// use the io pipe feat to connect io writer to io reader
 	pr, pw := io.Pipe()
 	go func() {
@@ -67,7 +56,15 @@ func (o *ApplyOptions) Run() error {
 		return err
 	}
 	if err := cli.Apply(cli.Flags, &input); err != nil {
-		logger.GetLogger().Errorf("cli apply err: %s", err.Error())
+		logger.GetLogger().Errorf("apply err: %s", err.Error())
+		return err
+	}
+	return nil
+}
+
+func (o *ApplyOptions) getGeneralResource(w io.Writer) error {
+	cli := o.getCliRuntime()
+	if err := cli.GetGeneralResources(w); err != nil {
 		return err
 	}
 	return nil
@@ -86,29 +83,15 @@ func (o *ApplyOptions) Validate() error {
 	return nil
 }
 
-func (o *ApplyOptions) reader() (io.Reader, []byte, error) {
+func (o *ApplyOptions) reader() (io.Reader, error) {
 	if o.InputPath == "-" {
-		scanner := bufio.NewScanner(os.Stdin)
-		if !scanner.Scan() {
-			return nil, nil, errors.New("input scan err")
-		}
-		line := scanner.Bytes()
-		return os.Stdin, line, nil
+		return os.Stdin, nil
 	} else {
 		file, err := os.Open(o.InputPath)
 		if err != nil {
-			return nil, nil, err
+			return nil, err
 		}
-		stat, err := file.Stat()
-		if err != nil {
-			return nil, nil, err
-		}
-		bs := make([]byte, stat.Size())
-		_, err = bufio.NewReader(file).Read(bs)
-		if err != nil {
-			return nil, nil, err
-		}
-		return bufio.NewReader(file), bs, nil
+		return bufio.NewReader(file), nil
 	}
 }
 
