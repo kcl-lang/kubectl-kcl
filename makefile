@@ -55,16 +55,16 @@ dist:
 	mkdir -p build/kubectl-kcl/bin release/
 	cp -f README.md LICENSE build/kubectl-kcl
 	GOOS=linux GOARCH=amd64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
-	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-linux-amd64.tgz kcl/
+	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-linux-amd64.tgz kubectl-kcl/
 	GOOS=linux GOARCH=arm64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
-	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-linux-arm64.tgz kcl/
+	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-linux-arm64.tgz kubectl-kcl/
 	GOOS=darwin GOARCH=amd64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
-	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-macos-amd64.tgz kcl/
+	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-macos-amd64.tgz kubectl-kcl/
 	GOOS=darwin GOARCH=arm64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl -trimpath -ldflags="$(LDFLAGS)"
-	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-macos-arm64.tgz kcl/
+	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-macos-arm64.tgz kubectl-kcl/
 	rm build/kubectl-kcl/bin/kubectl-kcl
 	GOOS=windows GOARCH=amd64 $(GO) build -o build/kubectl-kcl/bin/kubectl-kcl.exe -trimpath -ldflags="$(LDFLAGS)"
-	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-windows-amd64.tgz kcl/
+	tar -C build/ -zcvf $(CURDIR)/release/kubectl-kcl-windows-amd64.tgz kubectl-kcl/
 
 .PHONY: release
 release: lint dist
