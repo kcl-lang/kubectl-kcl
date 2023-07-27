@@ -42,4 +42,4 @@ functionConfig:
     params:
       annotations:
         managed-by: kubectl-kcl
-    source: oci://docker.io/kcllang/set-annotation
+    source: oci://ghcr.io/kcl-lang/set-annotation
