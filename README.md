@@ -35,6 +35,7 @@ kubectl kcl run -f ./examples/kcl-run.yaml
 
 ### Prerequisites
 
++ A Kubernetes Cluster e.g., K3d, Kind, etc.
 + GoLang 1.19+
 
 ```shell
@@ -54,7 +55,7 @@ go test ./...
 #### Integration Test
 
 ```shell
-go run main.go run -f ./examples/kcl-run.yaml
+go run main.go apply -f ./examples/krm-kcl-abstration.yaml
 ```
 
 ## Guides for Developing KCL
