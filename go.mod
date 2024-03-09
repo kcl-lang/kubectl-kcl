@@ -3,7 +3,7 @@ module kcl-lang.io/kubectl-kcl
 go 1.21
 
 require (
-	github.com/spf13/cobra v1.7.0
+	github.com/spf13/cobra v1.8.0
 	go.uber.org/zap v1.24.0
 	k8s.io/apimachinery v0.27.3
 	k8s.io/cli-runtime v0.27.1
