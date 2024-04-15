@@ -18,7 +18,7 @@ Add to `krew` index and install with:
 
 ```shell
 kubectl krew index add kubectl-kcl https://github.com/kcl-lang/kubectl-kcl
-kubectl krew install kubectl-kcl/kubectl-kcl
+kubectl krew install kubectl-kcl/kcl
 ```
 
 ### From GitHub Releases
