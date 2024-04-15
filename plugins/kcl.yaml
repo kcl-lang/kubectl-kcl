@@ -1,11 +1,16 @@
 apiVersion: krew.googlecontainertools.github.com/v1alpha2
 kind: Plugin
 metadata:
-  name: kubectl-kcl
+  name: kcl
 spec:
   version: v0.5.0
   platforms:
     - bin: kubectl-kcl
+      files:
+      - from: "/kubectl-kcl/bin/kubectl-kcl"
+        to: .
+      - from: "/kubectl-kcl/LICENSE"
+        to: .
       uri: https://github.com/kcl-lang/kubectl-kcl/releases/download/v0.5.0/kubectl-kcl-linux-amd64.tgz
       sha256: 689cf18e2574574fad1d176794a59846b79ee9cf6b5f691555e953de3e9a220a
       selector:
@@ -13,6 +18,11 @@ spec:
           os: linux
           arch: amd64
     - bin: kubectl-kcl
+      files:
+      - from: "/kubectl-kcl/bin/kubectl-kcl"
+        to: .
+      - from: "/kubectl-kcl/LICENSE"
+        to: .
       uri: https://github.com/kcl-lang/kubectl-kcl/releases/download/v0.5.0/kubectl-kcl-linux-arm64.tgz
       sha256: d4dec282723f72d5a89df6e91a255be0327f21867fc8c94907f1e7e0fb0f2d8a
       selector:
@@ -20,6 +30,11 @@ spec:
           os: linux
           arch: arm64
     - bin: kubectl-kcl
+      files:
+      - from: "/kubectl-kcl/bin/kubectl-kcl"
+        to: .
+      - from: "/kubectl-kcl/LICENSE"
+        to: .
       uri: https://github.com/kcl-lang/kubectl-kcl/releases/download/v0.5.0/kubectl-kcl-macos-amd64.tgz
       sha256: 6b79184474ec97faaf7975e03e16113ffca925b14e87d9efcfdaafe3e47dc640
       selector:
@@ -27,6 +42,11 @@ spec:
           os: darwin
           arch: amd64
     - bin: kubectl-kcl
+      files:
+      - from: "/kubectl-kcl/bin/kubectl-kcl"
+        to: .
+      - from: "/kubectl-kcl/LICENSE"
+        to: .
       uri: https://github.com/kcl-lang/kubectl-kcl/releases/download/v0.5.0/kubectl-kcl-macos-arm64.tgz
       sha256: ad401168aa4321ec4d787659b78cc5efbba81cd00a7ab85d6655a981e77ad8f8
       selector:
@@ -34,6 +54,11 @@ spec:
           os: darwin
           arch: arm64
     - bin: kubectl-kcl
+      files:
+      - from: "/kubectl-kcl/bin/kubectl-kcl.exe"
+        to: .
+      - from: "/kubectl-kcl/LICENSE"
+        to: .
       uri: https://github.com/kcl-lang/kubectl-kcl/releases/download/v0.5.0/kubectl-kcl-windows-amd64.tgz
       sha256: 768761cf86ed2faad00f5ad2c5851b74d8e8689fca2f562bb1236778f7488819
       selector:
