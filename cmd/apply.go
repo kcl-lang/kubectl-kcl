@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"kcl-lang.io/kubectl-kcl/pkg/kube"
 	"kcl-lang.io/kubectl-kcl/pkg/options"
 )
 
@@ -26,5 +27,6 @@ func NewApplyCmd() *cobra.Command {
 	f.StringVarP(&o.Namespace, "namespace", "n", "default", "kubernetes namespace default is the default namespace ")
 	f.StringVarP(&o.Selector, "selector", "l", "", "Selector (label query) to filter on.(e.g. -l key1=value1,key2=value2)")
 	f.StringVarP(&o.FieldSelector, "field-selector", "", "", "Selector (field query) to filter on.(e.g. --field-selector key1=value1,key2=value2)")
+	kube.AddKubeConfigFlags(cmd)
 	return cmd
 }

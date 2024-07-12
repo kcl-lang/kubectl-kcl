@@ -33,7 +33,10 @@ func NewApplyOptions() *ApplyOptions {
 
 // Run apply command option.
 func (o *ApplyOptions) Run() error {
-	cli := o.getCliRuntime()
+	cli, err := o.getCliRuntime()
+	if err != nil {
+		return err
+	}
 
 	reader, err := o.reader()
 	if err != nil {
@@ -55,27 +58,19 @@ func (o *ApplyOptions) Run() error {
 		logger.GetLogger().Errorf("io reader err: %s", err.Error())
 		return err
 	}
-	if err := cli.Apply(cli.Flags, &input); err != nil {
+	if err := cli.Apply(&input); err != nil {
 		logger.GetLogger().Errorf("apply err: %s", err.Error())
 		return err
 	}
 	return nil
 }
 
-func (o *ApplyOptions) getGeneralResource(w io.Writer) error {
-	cli := o.getCliRuntime()
-	if err := cli.GetGeneralResources(w); err != nil {
-		return err
+func (o *ApplyOptions) getCliRuntime() (*client.KubeCliRuntime, error) {
+	cliRuntime, err := client.NewKubeCliRuntime()
+	if err != nil {
+		return nil, err
 	}
-	return nil
-}
-
-func (o *ApplyOptions) getCliRuntime() *client.KubeCliRuntime {
-	cliRuntime := client.NewKubeCliRuntime()
-	cliRuntime.Namespace = o.Namespace
-	cliRuntime.Selector = o.Selector
-	cliRuntime.FieldSelector = o.FieldSelector
-	return cliRuntime
+	return cliRuntime, nil
 }
 
 // Validate the options.
