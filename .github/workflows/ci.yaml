@@ -1,7 +1,7 @@
 name: CI
 
 env:
-  VERSION_GO: '1.22'
+  VERSION_GO: '1.23'
 
 on:
   pull_request:

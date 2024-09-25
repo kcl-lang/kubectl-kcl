@@ -35,7 +35,7 @@ kubectl kcl run -f ./examples/kcl-run.yaml
 
 ### Prerequisites
 
-+ GoLang 1.22+
++ GoLang 1.23+
 
 ```shell
 git clone https://github.com/kcl-lang/kubectl-kcl.git
