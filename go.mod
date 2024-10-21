@@ -6,9 +6,9 @@ require (
 	github.com/spf13/cobra v1.8.1
 	go.uber.org/zap v1.27.0
 	k8s.io/apimachinery v0.31.1
-	k8s.io/cli-runtime v0.31.0
+	k8s.io/cli-runtime v0.31.1
 	kcl-lang.io/kcl-go v0.10.3
-	kcl-lang.io/krm-kcl v0.10.0
+	kcl-lang.io/krm-kcl v0.10.4
 )
 
 require (
@@ -202,7 +202,7 @@ require (
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340 // indirect
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8 // indirect
-	kcl-lang.io/cli v0.10.0 // indirect
+	kcl-lang.io/cli v0.10.4 // indirect
 	kcl-lang.io/kcl-openapi v0.9.0 // indirect
 	kcl-lang.io/kpm v0.10.0 // indirect
 	kcl-lang.io/lib v0.10.3 // indirect
