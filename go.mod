@@ -7,7 +7,7 @@ require (
 	go.uber.org/zap v1.27.1
 	k8s.io/apimachinery v0.34.2
 	k8s.io/cli-runtime v0.34.2
-	kcl-lang.io/kcl-go v0.12.0
+	kcl-lang.io/kcl-go v0.12.1
 	kcl-lang.io/krm-kcl v0.12.0
 )
 
@@ -98,7 +98,7 @@ require (
 	github.com/go-openapi/strfmt v0.23.0 // indirect
 	github.com/go-openapi/swag v0.23.0 // indirect
 	github.com/go-openapi/validate v0.24.0 // indirect
-	github.com/goccy/go-yaml v1.18.0 // indirect
+	github.com/goccy/go-yaml v1.19.0 // indirect
 	github.com/gofrs/flock v0.12.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3 // indirect
@@ -220,7 +220,7 @@ require (
 	kcl-lang.io/cli v0.12.0 // indirect
 	kcl-lang.io/kcl-openapi v0.10.0 // indirect
 	kcl-lang.io/kpm v0.12.0 // indirect
-	kcl-lang.io/lib v0.12.0 // indirect
+	kcl-lang.io/lib v0.12.1 // indirect
 	oras.land/oras-go v1.2.6 // indirect
 	oras.land/oras-go/v2 v2.5.0 // indirect
 	sigs.k8s.io/controller-runtime v0.22.4 // indirect
