@@ -4,7 +4,7 @@ go 1.25.8
 
 require (
 	github.com/spf13/cobra v1.10.2
-	go.uber.org/zap v1.27.1
+	go.uber.org/zap v1.28.0
 	k8s.io/apimachinery v0.35.2
 	k8s.io/cli-runtime v0.35.2
 	kcl-lang.io/kcl-go v0.12.3
