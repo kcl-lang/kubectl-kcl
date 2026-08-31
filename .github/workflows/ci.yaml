@@ -27,9 +27,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - uses: engineerd/setup-kind@v0.6.2
+      - uses: helm/kind-action@v1
         with:
-          version: "v0.11.1"
+          kind_version: "v0.11.1"
       
       - name: Kubernetes Testing
         run: |
