@@ -22,7 +22,7 @@ func NewApplyCmd() *cobra.Command {
 		SilenceUsage: true,
 	}
 	f := cmd.Flags()
-	f.StringVarP(&o.InputPath, "file", "f", "", "input kcl spec file to pass to kubectl kcl")
+	f.StringSliceVarP(&o.InputPaths, "file", "f", nil, "input kcl spec file(s) to pass to kubectl kcl (repeatable, or comma-separated)")
 	f.StringVarP(&o.OutputPath, "output", "o", "", "output yaml path, default is stdout")
 	f.StringVarP(&o.Namespace, "namespace", "n", "default", "kubernetes namespace default is the default namespace ")
 	f.StringVarP(&o.Selector, "selector", "l", "", "Selector (label query) to filter on.(e.g. -l key1=value1,key2=value2)")

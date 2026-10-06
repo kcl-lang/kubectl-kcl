@@ -78,16 +78,10 @@ func (o *ApplyOptions) Validate() error {
 	return nil
 }
 
+// reader delegates to RunOptions.reader so apply shares the same
+// multi-file + stdin handling as `run`.
 func (o *ApplyOptions) reader() (io.Reader, error) {
-	if o.InputPath == "-" {
-		return os.Stdin, nil
-	} else {
-		file, err := os.Open(o.InputPath)
-		if err != nil {
-			return nil, err
-		}
-		return bufio.NewReader(file), nil
-	}
+	return o.RunOptions.reader()
 }
 
 func (o *ApplyOptions) writer() (io.Writer, error) {

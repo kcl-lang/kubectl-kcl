@@ -22,7 +22,7 @@ func NewRunCmd() *cobra.Command {
 	}
 
 	f := cmd.Flags()
-	f.StringVarP(&o.InputPath, "filename", "f", "", "input kcl spec file to pass to kubectl kcl")
+	f.StringSliceVarP(&o.InputPaths, "filename", "f", nil, "input kcl spec file(s) to pass to kubectl kcl (repeatable, or comma-separated)")
 	f.StringVarP(&o.OutputPath, "output", "o", "", "output yaml path, default is stdout")
 
 	return cmd
