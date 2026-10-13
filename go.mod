@@ -7,7 +7,7 @@ require (
 	go.uber.org/zap v1.28.0
 	k8s.io/apimachinery v0.37.0
 	k8s.io/cli-runtime v0.37.0
-	kcl-lang.io/kcl-go v0.13.0
+	kcl-lang.io/kcl-go v0.13.1
 	kcl-lang.io/krm-kcl v0.12.10
 )
 
@@ -56,7 +56,6 @@ require (
 	github.com/buger/jsonparser v1.6.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/chai2010/jsonv v1.1.3 // indirect
-	github.com/chai2010/protorpc v1.1.4 // indirect
 	github.com/chainguard-dev/git-urls v1.0.2 // indirect
 	github.com/cloudflare/circl v1.6.3 // indirect
 	github.com/cncf/xds/go v0.0.0-20260202195803-dba9d589def2 // indirect
@@ -74,7 +73,7 @@ require (
 	github.com/docker/go-connections v0.5.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/dominikbraun/graph v0.23.0 // indirect
-	github.com/ebitengine/purego v0.9.1 // indirect
+	github.com/ebitengine/purego v0.11.1 // indirect
 	github.com/elliotchance/orderedmap/v2 v2.7.0 // indirect
 	github.com/emicklei/go-restful/v3 v3.13.0 // indirect
 	github.com/emicklei/proto v1.14.3 // indirect
@@ -114,11 +113,9 @@ require (
 	github.com/go-openapi/validate v0.24.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/goccy/go-yaml v1.19.2 // indirect
-	github.com/gofrs/flock v0.13.0 // indirect
+	github.com/gofrs/flock v0.13.1 // indirect
 	github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
-	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/btree v1.1.3 // indirect
 	github.com/google/cel-go v0.29.2 // indirect
 	github.com/google/gnostic-models v0.7.0 // indirect
@@ -233,7 +230,7 @@ require (
 	kcl-lang.io/cli v0.12.10 // indirect
 	kcl-lang.io/kcl-openapi v0.11.1 // indirect
 	kcl-lang.io/kpm v0.12.9 // indirect
-	kcl-lang.io/lib v0.13.0 // indirect
+	kcl-lang.io/lib v0.13.1 // indirect
 	oras.land/oras-go/v2 v2.6.1 // indirect
 	sigs.k8s.io/controller-runtime v0.25.0 // indirect
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect
